@@ -33,6 +33,9 @@ class AdminPanelProvider extends PanelProvider
             ->profile()
             ->brandName('CMS Portal Instansi')
             ->sidebarCollapsibleOnDesktop()
+            ->spa()
+            ->resourceCreatePageRedirect('index')
+            ->resourceEditPageRedirect('index')
             ->colors([
                 'primary' => Color::Indigo,
                 'gray' => Color::Slate,
