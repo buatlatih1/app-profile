@@ -277,4 +277,42 @@ class ApiEndpointsTest extends TestCase
                 ],
             ]);
     }
+
+    public function test_api_responds_in_indonesian_when_requested_via_accept_language_header(): void
+    {
+        $response = $this->withHeader('Accept-Language', 'id')
+            ->postJson('/api/v1/questions', []);
+
+        $response->assertStatus(422)
+            ->assertHeader('Content-Language', 'id')
+            ->assertJsonPath('errors.name.0', 'Nama wajib diisi.');
+    }
+
+    public function test_api_responds_in_indonesian_when_requested_via_query_parameter(): void
+    {
+        $response = $this->postJson('/api/v1/questions?lang=id', []);
+
+        $response->assertStatus(422)
+            ->assertHeader('Content-Language', 'id')
+            ->assertJsonPath('errors.name.0', 'Nama wajib diisi.');
+    }
+
+    public function test_api_responds_in_english_when_requested_via_accept_language_header(): void
+    {
+        $response = $this->withHeader('Accept-Language', 'en')
+            ->postJson('/api/v1/questions', []);
+
+        $response->assertStatus(422)
+            ->assertHeader('Content-Language', 'en')
+            ->assertJsonPath('errors.name.0', 'The name field is required.');
+    }
+
+    public function test_api_responds_in_english_when_requested_via_query_parameter(): void
+    {
+        $response = $this->postJson('/api/v1/questions?lang=en', []);
+
+        $response->assertStatus(422)
+            ->assertHeader('Content-Language', 'en')
+            ->assertJsonPath('errors.name.0', 'The name field is required.');
+    }
 }

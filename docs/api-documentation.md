@@ -7,7 +7,16 @@ Header Wajib:
 ```http
 Accept: application/json
 Content-Type: application/json
+Accept-Language: id  # atau "en" untuk Bahasa Inggris
 ```
+
+### 🌐 Dukungan Multi-Bahasa (Localization)
+API mendukung **Bahasa Indonesia (`id`)** dan **Bahasa Inggris (`en`)**.
+Aplikasi Flutter dapat menentukan bahasa respons melalui salah satu cara berikut:
+1. **Header HTTP**: `Accept-Language: en` atau `Accept-Language: id`
+2. **Query Parameter**: `?lang=en` atau `?locale=id`
+
+Setiap respons API akan menyertakan header `Content-Language: id` atau `Content-Language: en`. Pesan validasi, error, dan status otomatis disesuaikan dengan bahasa yang diminta.
 
 ---
 

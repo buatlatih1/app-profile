@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Widgets\LatestPostsWidget;
 use App\Filament\Widgets\LatestQuestionsWidget;
 use App\Filament\Widgets\StatsOverviewWidget;
+use App\Http\Middleware\SetLocaleMiddleware;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -66,6 +67,8 @@ class AdminPanelProvider extends PanelProvider
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
+                SetLocaleMiddleware::class,
+                \App\Http\Middleware\SetLocaleMiddleware::class,
                 AuthenticateSession::class,
                 ShareErrorsFromSession::class,
                 PreventRequestForgery::class,
