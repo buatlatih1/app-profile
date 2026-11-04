@@ -17,31 +17,32 @@ class MediaForm
                     ->default(fn () => auth()->id()),
 
                 FileUpload::make('file_path')
-                    ->label('File / Gambar')
+                    ->label(__('File / Image'))
                     ->disk('public')
                     ->directory('media')
                     ->required()
                     ->columnSpanFull(),
 
                 TextInput::make('file_name')
-                    ->label('Nama File / Judul')
+                    ->label(__('File Name / Title'))
                     ->required()
                     ->maxLength(255),
 
                 TextInput::make('alt_text')
-                    ->label('Teks Alternatif (Alt Text)')
+                    ->label(__('Alt Text'))
                     ->maxLength(255),
 
                 TextInput::make('mime_type')
-                    ->label('Mime Type')
+                    ->label(__('MIME Type'))
                     ->placeholder('image/jpeg, application/pdf'),
 
                 TextInput::make('file_size')
-                    ->label('Ukuran File (bytes)')
+                    ->label(__('File Size (bytes)'))
                     ->numeric()
                     ->default(0),
 
                 TextInput::make('disk')
+                    ->label(__('Storage Disk'))
                     ->default('public')
                     ->required(),
             ]);

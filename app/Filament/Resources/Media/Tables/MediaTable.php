@@ -16,31 +16,31 @@ class MediaTable
         return $table
             ->columns([
                 ImageColumn::make('file_path')
-                    ->label('Preview')
+                    ->label(__('Preview'))
                     ->disk('public')
                     ->square(),
 
                 TextColumn::make('file_name')
-                    ->label('Nama File')
+                    ->label(__('File Name'))
                     ->weight('bold')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('mime_type')
-                    ->label('Tipe')
+                    ->label(__('Type'))
                     ->badge()
                     ->searchable(),
 
                 TextColumn::make('readable_size')
-                    ->label('Ukuran'),
+                    ->label(__('Size')),
 
                 TextColumn::make('alt_text')
-                    ->label('Alt Text')
+                    ->label(__('Alt Text'))
                     ->limit(30)
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Diupload')
+                    ->label(__('Uploaded At'))
                     ->dateTime('d M Y H:i')
                     ->sortable(),
             ])

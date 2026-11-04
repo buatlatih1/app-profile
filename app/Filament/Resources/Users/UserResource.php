@@ -13,7 +13,6 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use UnitEnum;
 
 class UserResource extends Resource
 {
@@ -21,23 +20,26 @@ class UserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Pengaturan';
-
     protected static ?int $navigationSort = 20;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
+    }
 
     public static function getNavigationLabel(): string
     {
-        return 'Pengguna & Hak Akses';
+        return __('Users & Permissions');
     }
 
     public static function getModelLabel(): string
     {
-        return 'Pengguna';
+        return __('User');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return 'Daftar Pengguna';
+        return __('Users');
     }
 
     public static function form(Schema $schema): Schema

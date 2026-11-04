@@ -18,44 +18,46 @@ class SlidesTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Banner')
+                    ->label(__('Banner'))
                     ->disk('public'),
 
                 TextColumn::make('title')
-                    ->label('Judul Slide')
+                    ->label(__('Slide Title'))
                     ->weight('bold')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('link_url')
-                    ->label('URL Tautan')
+                    ->label(__('Link URL'))
                     ->limit(30)
                     ->searchable(),
 
                 TextColumn::make('sort_order')
-                    ->label('Urutan')
+                    ->label(__('Order'))
                     ->sortable(),
 
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->boolean()
                     ->sortable(),
 
                 TextColumn::make('start_date')
-                    ->label('Mulai')
+                    ->label(__('Start Date'))
                     ->date('d M Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('end_date')
-                    ->label('Berakhir')
+                    ->label(__('End Date'))
                     ->date('d M Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TernaryFilter::make('is_active')
-                    ->label('Status Aktif'),
+                    ->label(__('Active Status'))
+                    ->trueLabel(__('Active Only'))
+                    ->falseLabel(__('Inactive Only')),
             ])
             ->recordActions([
                 EditAction::make(),

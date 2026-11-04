@@ -15,29 +15,29 @@ class FaqForm
         return $schema
             ->components([
                 Select::make('topic_id')
-                    ->label('Topik Kategori FAQ')
+                    ->label(__('FAQ Topic'))
                     ->relationship('topic', 'name')
                     ->searchable()
                     ->preload(),
 
                 TextInput::make('question')
-                    ->label('Pertanyaan (FAQ)')
+                    ->label(__('Question'))
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
 
                 RichEditor::make('answer')
-                    ->label('Jawaban')
+                    ->label(__('Answer'))
                     ->required()
                     ->columnSpanFull(),
 
                 TextInput::make('sort_order')
-                    ->label('Nomor Urut')
+                    ->label(__('Sort Order'))
                     ->numeric()
                     ->default(0),
 
                 Toggle::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->default(true),
             ]);
     }

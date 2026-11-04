@@ -15,35 +15,35 @@ class CategoryForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('Nama Kategori')
+                    ->label(__('Category Name'))
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
 
                 TextInput::make('slug')
-                    ->label('Slug URL')
+                    ->label(__('URL Slug'))
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
 
                 Textarea::make('description')
-                    ->label('Deskripsi')
+                    ->label(__('Description'))
                     ->rows(3)
                     ->columnSpanFull(),
 
                 TextInput::make('icon')
-                    ->label('Kode Ikon')
+                    ->label(__('Icon Code'))
                     ->placeholder('newspaper')
                     ->maxLength(50),
 
                 TextInput::make('sort_order')
-                    ->label('Nomor Urut')
+                    ->label(__('Sort Order'))
                     ->numeric()
                     ->default(0),
 
                 Toggle::make('is_active')
-                    ->label('Status Aktif')
+                    ->label(__('Active Status'))
                     ->default(true),
             ]);
     }

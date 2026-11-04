@@ -18,69 +18,69 @@ class MenuForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('Nama Menu')
+                    ->label(__('Menu Name'))
                     ->required()
                     ->maxLength(255),
 
                 Select::make('location')
-                    ->label('Lokasi Menu')
+                    ->label(__('Menu Location'))
                     ->options([
-                        'header' => 'Header (Navigasi Atas)',
-                        'footer' => 'Footer (Navigasi Bawah)',
-                        'sidebar' => 'Sidebar (Menu Samping)',
+                        'header' => __('Header (Top Navigation)'),
+                        'footer' => __('Footer (Bottom Navigation)'),
+                        'sidebar' => __('Sidebar'),
                     ])
                     ->required()
                     ->default('header'),
 
                 Toggle::make('is_active')
-                    ->label('Status Aktif')
+                    ->label(__('Active Status'))
                     ->default(true),
 
                 Repeater::make('items')
-                    ->label('Daftar Tautan Menu')
+                    ->label(__('Menu Items'))
                     ->relationship('items')
                     ->orderColumn('sort_order')
                     ->schema([
                         TextInput::make('label')
-                            ->label('Teks Label')
+                            ->label(__('Label Text'))
                             ->required(),
 
                         Select::make('type')
-                            ->label('Tipe Tautan')
+                            ->label(__('Link Type'))
                             ->options([
-                                'custom' => 'Tautan Kustom / URL Luar',
-                                'page' => 'Halaman Statis',
-                                'category' => 'Kategori Post',
-                                'post' => 'Artikel Tertentu',
+                                'custom' => __('Custom URL / External Link'),
+                                'page' => __('Static Page'),
+                                'category' => __('Post Category'),
+                                'post' => __('Specific Post'),
                             ])
                             ->default('custom')
                             ->reactive(),
 
                         TextInput::make('url')
-                            ->label('Alamat URL')
+                            ->label(__('URL Address'))
                             ->visible(fn ($get) => $get('type') === 'custom')
-                            ->placeholder('https://... atau /path'),
+                            ->placeholder(__('https://... or /path')),
 
                         Select::make('linkable_id')
-                            ->label('Pilih Halaman Statis')
+                            ->label(__('Select Static Page'))
                             ->options(fn () => Page::pluck('title', 'id'))
                             ->visible(fn ($get) => $get('type') === 'page')
                             ->searchable(),
 
                         Select::make('linkable_id')
-                            ->label('Pilih Kategori')
+                            ->label(__('Select Category'))
                             ->options(fn () => Category::pluck('name', 'id'))
                             ->visible(fn ($get) => $get('type') === 'category')
                             ->searchable(),
 
                         Select::make('linkable_id')
-                            ->label('Pilih Artikel')
+                            ->label(__('Select Post'))
                             ->options(fn () => Post::pluck('title', 'id'))
                             ->visible(fn ($get) => $get('type') === 'post')
                             ->searchable(),
 
                         Toggle::make('is_active')
-                            ->label('Aktif')
+                            ->label(__('Active'))
                             ->default(true),
                     ])
                     ->columns(3)

@@ -17,39 +17,41 @@ class QuestionTopicsTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Nama Topik')
+                    ->label(__('Topic Name'))
                     ->weight('bold')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('slug')
-                    ->label('Slug')
+                    ->label(__('Slug'))
                     ->searchable(),
 
                 TextColumn::make('questions_count')
-                    ->label('Total Pertanyaan')
+                    ->label(__('Total Questions'))
                     ->counts('questions')
                     ->badge()
                     ->color('primary'),
 
                 TextColumn::make('sort_order')
-                    ->label('Urutan')
+                    ->label(__('Order'))
                     ->sortable(),
 
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->boolean()
                     ->sortable(),
 
                 TextColumn::make('created_at')
-                    ->label('Dibuat')
+                    ->label(__('Created At'))
                     ->dateTime('d M Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TernaryFilter::make('is_active')
-                    ->label('Status Aktif'),
+                    ->label(__('Active Status'))
+                    ->trueLabel(__('Active Only'))
+                    ->falseLabel(__('Inactive Only')),
             ])
             ->recordActions([
                 EditAction::make(),

@@ -21,23 +21,23 @@ class StatsOverviewWidget extends BaseStatsOverviewWidget
         $answeredQuestions = Question::where('status', QuestionStatus::Answered)->count();
 
         return [
-            Stat::make('Artikel Diterbitkan', $publishedPosts)
-                ->description('Total artikel aktif publik')
+            Stat::make(__('Published Articles'), $publishedPosts)
+                ->description(__('Total active public articles'))
                 ->descriptionIcon('heroicon-m-document-text')
                 ->color('primary'),
 
-            Stat::make('Pertanyaan Menunggu', $pendingQuestions)
-                ->description($pendingQuestions > 0 ? 'Perlu respon tim admin' : 'Semua pertanyaan selesai')
+            Stat::make(__('Pending Questions'), $pendingQuestions)
+                ->description($pendingQuestions > 0 ? __('Needs response from admin team') : __('All questions handled'))
                 ->descriptionIcon('heroicon-m-chat-bubble-left-ellipsis')
                 ->color($pendingQuestions > 0 ? 'warning' : 'success'),
 
-            Stat::make('Pertanyaan Dijawab', $answeredQuestions)
-                ->description('Telah ditanggapi dan dipublikasikan')
+            Stat::make(__('Answered Questions'), $answeredQuestions)
+                ->description(__('Responded and published'))
                 ->descriptionIcon('heroicon-m-check-badge')
                 ->color('success'),
 
-            Stat::make('Total Pembaca Artikel', number_format($totalViews))
-                ->description('Akumulasi pembaca portal')
+            Stat::make(__('Total Article Readers'), number_format($totalViews))
+                ->description(__('Accumulated portal readers'))
                 ->descriptionIcon('heroicon-m-eye')
                 ->color('info'),
         ];

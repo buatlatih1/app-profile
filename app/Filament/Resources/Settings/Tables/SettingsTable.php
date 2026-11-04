@@ -16,7 +16,7 @@ class SettingsTable
         return $table
             ->columns([
                 TextColumn::make('group')
-                    ->label('Kelompok')
+                    ->label(__('Group'))
                     ->badge()
                     ->colors([
                         'primary' => 'general',
@@ -24,48 +24,63 @@ class SettingsTable
                         'warning' => 'social',
                         'info' => 'appearance',
                     ])
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'general' => __('General'),
+                        'contact' => __('Contact'),
+                        'social' => __('Social Media'),
+                        'appearance' => __('Appearance'),
+                        default => $state,
+                    })
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('key')
-                    ->label('Kunci')
+                    ->label(__('Key'))
                     ->weight('bold')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('value')
-                    ->label('Nilai')
+                    ->label(__('Value'))
                     ->limit(50)
                     ->tooltip(fn ($record): ?string => $record->value)
                     ->searchable(),
 
                 TextColumn::make('type')
-                    ->label('Tipe')
+                    ->label(__('Type'))
                     ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'text' => __('Short Text'),
+                        'textarea' => __('Long Text'),
+                        'image' => __('Image / Logo'),
+                        'boolean' => __('Boolean (On/Off)'),
+                        'json' => __('JSON'),
+                        default => $state,
+                    })
                     ->sortable(),
 
                 TextColumn::make('updated_at')
-                    ->label('Terakhir Diperbarui')
+                    ->label(__('Last Updated'))
                     ->dateTime('d M Y H:i')
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('group')
-                    ->label('Filter Kelompok')
+                    ->label(__('Filter by Group'))
                     ->options([
-                        'general' => 'Umum',
-                        'contact' => 'Kontak',
-                        'social' => 'Media Sosial',
-                        'appearance' => 'Tampilan',
+                        'general' => __('General'),
+                        'contact' => __('Contact'),
+                        'social' => __('Social Media'),
+                        'appearance' => __('Appearance'),
                     ]),
                 SelectFilter::make('type')
-                    ->label('Filter Tipe')
+                    ->label(__('Filter by Type'))
                     ->options([
-                        'text' => 'Teks Pendek',
-                        'textarea' => 'Teks Panjang',
-                        'image' => 'Gambar',
-                        'boolean' => 'Boolean',
-                        'json' => 'JSON',
+                        'text' => __('Short Text'),
+                        'textarea' => __('Long Text'),
+                        'image' => __('Image / Logo'),
+                        'boolean' => __('Boolean (On/Off)'),
+                        'json' => __('JSON'),
                     ]),
             ])
             ->recordActions([

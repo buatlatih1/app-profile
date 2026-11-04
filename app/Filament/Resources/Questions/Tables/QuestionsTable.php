@@ -17,31 +17,31 @@ class QuestionsTable
         return $table
             ->columns([
                 TextColumn::make('created_at')
-                    ->label('Tanggal Masuk')
+                    ->label(__('Received Date'))
                     ->dateTime('d M Y H:i')
                     ->sortable(),
 
                 TextColumn::make('name')
-                    ->label('Nama Warga')
+                    ->label(__('Citizen Name'))
                     ->weight('bold')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('subject')
-                    ->label('Subjek')
+                    ->label(__('Subject'))
                     ->limit(35)
                     ->tooltip(fn ($record): string => $record->subject)
                     ->searchable(),
 
                 TextColumn::make('topic.name')
-                    ->label('Topik')
+                    ->label(__('Topic'))
                     ->badge()
                     ->color('info')
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn ($state) => match ($state instanceof QuestionStatus ? $state->value : $state) {
                         QuestionStatus::Answered->value => 'success',
@@ -50,34 +50,34 @@ class QuestionsTable
                         default => 'gray',
                     })
                     ->formatStateUsing(fn ($state) => match ($state instanceof QuestionStatus ? $state->value : $state) {
-                        QuestionStatus::Answered->value => 'Dijawab',
-                        QuestionStatus::Pending->value => 'Menunggu',
-                        QuestionStatus::Rejected->value => 'Ditolak',
+                        QuestionStatus::Answered->value => __('Answered'),
+                        QuestionStatus::Pending->value => __('Pending'),
+                        QuestionStatus::Rejected->value => __('Rejected'),
                         default => $state,
                     })
                     ->sortable(),
 
                 TextColumn::make('email')
-                    ->label('Email')
+                    ->label(__('Email'))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('phone')
-                    ->label('Telepon')
+                    ->label(__('Phone'))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->label('Filter Status')
+                    ->label(__('Filter by Status'))
                     ->options([
-                        QuestionStatus::Pending->value => 'Menunggu',
-                        QuestionStatus::Answered->value => 'Sudah Dijawab',
-                        QuestionStatus::Rejected->value => 'Ditolak',
+                        QuestionStatus::Pending->value => __('Pending'),
+                        QuestionStatus::Answered->value => __('Answered'),
+                        QuestionStatus::Rejected->value => __('Rejected'),
                     ]),
 
                 SelectFilter::make('topic_id')
-                    ->label('Filter Topik')
+                    ->label(__('Filter by Topic'))
                     ->relationship('topic', 'name'),
             ])
             ->recordActions([

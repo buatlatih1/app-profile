@@ -8,14 +8,18 @@ use App\Models\Question;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
+use Illuminate\Contracts\Support\Htmlable;
 
 class LatestQuestionsWidget extends TableWidget
 {
     protected static ?int $sort = 2;
 
-    protected static ?string $heading = 'Pertanyaan Masyarakat Terbaru';
-
     protected int|string|array $columnSpan = 'full';
+
+    public function getTableHeading(): string|Htmlable|null
+    {
+        return __('Latest Citizen Questions');
+    }
 
     public function table(Table $table): Table
     {
@@ -24,24 +28,24 @@ class LatestQuestionsWidget extends TableWidget
             ->defaultPaginationPageOption(5)
             ->columns([
                 TextColumn::make('created_at')
-                    ->label('Tanggal Masuk')
+                    ->label(__('Received Date'))
                     ->dateTime('d M Y H:i'),
 
                 TextColumn::make('name')
-                    ->label('Nama Warga')
+                    ->label(__('Citizen Name'))
                     ->weight('bold'),
 
                 TextColumn::make('topic.name')
-                    ->label('Topik')
+                    ->label(__('Topic'))
                     ->badge()
                     ->color('info'),
 
                 TextColumn::make('subject')
-                    ->label('Subjek Pertanyaan')
+                    ->label(__('Subject'))
                     ->limit(40),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn ($state) => match ($state instanceof QuestionStatus ? $state->value : $state) {
                         QuestionStatus::Answered->value => 'success',
@@ -50,9 +54,9 @@ class LatestQuestionsWidget extends TableWidget
                         default => 'gray',
                     })
                     ->formatStateUsing(fn ($state) => match ($state instanceof QuestionStatus ? $state->value : $state) {
-                        QuestionStatus::Answered->value => 'Dijawab',
-                        QuestionStatus::Pending->value => 'Menunggu',
-                        QuestionStatus::Rejected->value => 'Ditolak',
+                        QuestionStatus::Answered->value => __('Answered'),
+                        QuestionStatus::Pending->value => __('Pending'),
+                        QuestionStatus::Rejected->value => __('Rejected'),
                         default => $state,
                     }),
             ])

@@ -15,51 +15,51 @@ class QuestionForm
         return $schema
             ->components([
                 Select::make('topic_id')
-                    ->label('Topik Pertanyaan')
+                    ->label(__('Question Topic'))
                     ->relationship('topic', 'name')
                     ->required()
                     ->searchable()
                     ->preload(),
 
                 Select::make('status')
-                    ->label('Status Pertanyaan')
+                    ->label(__('Question Status'))
                     ->options([
-                        QuestionStatus::Pending->value => 'Menunggu Tanggapan',
-                        QuestionStatus::Answered->value => 'Sudah Dijawab',
-                        QuestionStatus::Rejected->value => 'Ditolak',
+                        QuestionStatus::Pending->value => __('Pending Response'),
+                        QuestionStatus::Answered->value => __('Answered'),
+                        QuestionStatus::Rejected->value => __('Rejected'),
                     ])
                     ->default(QuestionStatus::Pending->value)
                     ->required(),
 
                 TextInput::make('name')
-                    ->label('Nama Penanya')
+                    ->label(__('Citizen Name'))
                     ->required()
                     ->maxLength(255),
 
                 TextInput::make('email')
-                    ->label('Alamat Email')
+                    ->label(__('Email Address'))
                     ->email()
                     ->required()
                     ->maxLength(255),
 
                 TextInput::make('phone')
-                    ->label('Nomor WhatsApp / Telepon')
+                    ->label(__('Phone / WhatsApp Number'))
                     ->tel()
                     ->maxLength(50),
 
                 TextInput::make('ip_address')
-                    ->label('Alamat IP Penanya')
+                    ->label(__('Citizen IP Address'))
                     ->disabled()
                     ->dehydrated(false),
 
                 TextInput::make('subject')
-                    ->label('Subjek / Judul Pertanyaan')
+                    ->label(__('Subject'))
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
 
                 Textarea::make('body')
-                    ->label('Isi Pertanyaan / Aspirasi')
+                    ->label(__('Question / Feedback Content'))
                     ->required()
                     ->rows(5)
                     ->columnSpanFull(),

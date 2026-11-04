@@ -19,52 +19,59 @@ class PagesTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Banner')
+                    ->label(__('Banner'))
                     ->disk('public'),
 
                 TextColumn::make('title')
-                    ->label('Judul Halaman')
+                    ->label(__('Page Title'))
                     ->weight('bold')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('slug')
-                    ->label('Slug')
+                    ->label(__('Slug'))
                     ->searchable(),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'published' => 'success',
                         'draft' => 'warning',
                         default => 'gray',
                     })
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'published' => __('Published'),
+                        'draft' => __('Draft'),
+                        default => $state,
+                    })
                     ->sortable(),
 
                 TextColumn::make('sort_order')
-                    ->label('Urutan')
+                    ->label(__('Order'))
                     ->sortable(),
 
                 IconColumn::make('show_in_menu')
-                    ->label('Di Menu')
+                    ->label(__('In Menu'))
                     ->boolean()
                     ->sortable(),
 
                 TextColumn::make('updated_at')
-                    ->label('Terakhir Diubah')
+                    ->label(__('Last Updated'))
                     ->dateTime('d M Y')
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->label('Status')
+                    ->label(__('Filter Status'))
                     ->options([
-                        'published' => 'Published',
-                        'draft' => 'Draft',
+                        'published' => __('Published'),
+                        'draft' => __('Draft'),
                     ]),
                 TernaryFilter::make('show_in_menu')
-                    ->label('Tampil di Menu'),
+                    ->label(__('Show in Menu'))
+                    ->trueLabel(__('Shown Only'))
+                    ->falseLabel(__('Hidden Only')),
             ])
             ->recordActions([
                 EditAction::make(),

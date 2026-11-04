@@ -16,48 +16,48 @@ class SettingForm
         return $schema
             ->components([
                 Select::make('group')
-                    ->label('Kelompok')
+                    ->label(__('Group'))
                     ->options([
-                        'general' => 'Umum (General)',
-                        'contact' => 'Kontak (Contact)',
-                        'social' => 'Media Sosial (Social)',
-                        'appearance' => 'Tampilan (Appearance)',
+                        'general' => __('General'),
+                        'contact' => __('Contact'),
+                        'social' => __('Social Media'),
+                        'appearance' => __('Appearance'),
                     ])
                     ->required()
                     ->default('general'),
 
                 Select::make('type')
-                    ->label('Tipe Nilai')
+                    ->label(__('Value Type'))
                     ->options([
-                        'text' => 'Teks Pendek',
-                        'textarea' => 'Teks Panjang',
-                        'image' => 'Gambar / Logo',
-                        'boolean' => 'Boolean (Aktif/Nonaktif)',
-                        'json' => 'JSON',
+                        'text' => __('Short Text'),
+                        'textarea' => __('Long Text'),
+                        'image' => __('Image / Logo'),
+                        'boolean' => __('Boolean (On/Off)'),
+                        'json' => __('JSON'),
                     ])
                     ->required()
                     ->default('text')
                     ->reactive(),
 
                 TextInput::make('key')
-                    ->label('Kunci (Key)')
+                    ->label(__('Key'))
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->helperText('Contoh: site_name, contact_email, dll.'),
+                    ->helperText(__('Example: site_name, contact_email, etc.')),
 
                 TextInput::make('value')
-                    ->label('Nilai Pengaturan')
+                    ->label(__('Setting Value'))
                     ->visible(fn ($get) => in_array($get('type'), ['text', null]))
                     ->columnSpanFull(),
 
                 Textarea::make('value')
-                    ->label('Nilai Pengaturan')
+                    ->label(__('Setting Value'))
                     ->rows(4)
                     ->visible(fn ($get) => in_array($get('type'), ['textarea', 'json']))
                     ->columnSpanFull(),
 
                 FileUpload::make('value')
-                    ->label('Upload Gambar')
+                    ->label(__('Upload Image'))
                     ->image()
                     ->disk('public')
                     ->directory('settings')
@@ -65,7 +65,7 @@ class SettingForm
                     ->columnSpanFull(),
 
                 Toggle::make('value')
-                    ->label('Status Aktif')
+                    ->label(__('Active Status'))
                     ->visible(fn ($get) => $get('type') === 'boolean')
                     ->columnSpanFull(),
             ]);

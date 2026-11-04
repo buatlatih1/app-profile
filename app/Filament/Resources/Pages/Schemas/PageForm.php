@@ -21,46 +21,46 @@ class PageForm
                     ->default(fn () => auth()->id()),
 
                 TextInput::make('title')
-                    ->label('Judul Halaman')
+                    ->label(__('Page Title'))
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
 
                 TextInput::make('slug')
-                    ->label('Slug URL')
+                    ->label(__('URL Slug'))
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
 
                 FileUpload::make('image')
-                    ->label('Gambar Header / Banner (Opsional)')
+                    ->label(__('Banner Image (Optional)'))
                     ->image()
                     ->disk('public')
                     ->directory('pages')
                     ->columnSpanFull(),
 
                 RichEditor::make('content')
-                    ->label('Konten Halaman')
+                    ->label(__('Page Content'))
                     ->required()
                     ->columnSpanFull(),
 
                 Select::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->options([
-                        'draft' => 'Draft',
-                        'published' => 'Published (Diterbitkan)',
+                        'draft' => __('Draft'),
+                        'published' => __('Published'),
                     ])
                     ->default('published')
                     ->required(),
 
                 TextInput::make('sort_order')
-                    ->label('Urutan')
+                    ->label(__('Sort Order'))
                     ->numeric()
                     ->default(0),
 
                 Toggle::make('show_in_menu')
-                    ->label('Tampilkan di Pilihan Menu Navigasi')
+                    ->label(__('Show in Navigation Menu'))
                     ->default(true),
             ]);
     }

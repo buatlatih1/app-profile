@@ -16,17 +16,17 @@ class SlideForm
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->label('Judul Slide')
+                    ->label(__('Slide Title'))
                     ->required()
                     ->maxLength(255),
 
                 TextInput::make('link_url')
-                    ->label('Tautan Tujuan (Link URL)')
-                    ->placeholder('https://... atau /posts/judul-artikel')
+                    ->label(__('Destination Link URL'))
+                    ->placeholder(__('https://... or /posts/article-title'))
                     ->maxLength(255),
 
                 FileUpload::make('image')
-                    ->label('Gambar Banner Slide')
+                    ->label(__('Slide Banner Image'))
                     ->image()
                     ->disk('public')
                     ->directory('slides')
@@ -34,24 +34,24 @@ class SlideForm
                     ->columnSpanFull(),
 
                 Textarea::make('description')
-                    ->label('Keterangan Singkat')
+                    ->label(__('Short Description'))
                     ->rows(2)
                     ->columnSpanFull(),
 
                 TextInput::make('sort_order')
-                    ->label('Nomor Urut')
+                    ->label(__('Sort Order'))
                     ->numeric()
                     ->default(0),
 
                 Toggle::make('is_active')
-                    ->label('Aktif Ditampilkan')
+                    ->label(__('Active Display'))
                     ->default(true),
 
                 DatePicker::make('start_date')
-                    ->label('Mulai Ditampilkan (Opsional)'),
+                    ->label(__('Start Display Date (Optional)')),
 
                 DatePicker::make('end_date')
-                    ->label('Selesai Ditampilkan (Opsional)'),
+                    ->label(__('End Display Date (Optional)')),
             ]);
     }
 }

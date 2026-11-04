@@ -13,7 +13,6 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use UnitEnum;
 
 class FaqResource extends Resource
 {
@@ -21,23 +20,26 @@ class FaqResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedQuestionMarkCircle;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Layanan Masyarakat';
-
     protected static ?int $navigationSort = 3;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Public Services');
+    }
 
     public static function getNavigationLabel(): string
     {
-        return 'FAQ (Tanya Jawab)';
+        return __('FAQ');
     }
 
     public static function getModelLabel(): string
     {
-        return 'FAQ';
+        return __('FAQ');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return 'Daftar FAQ';
+        return __('FAQs');
     }
 
     public static function form(Schema $schema): Schema

@@ -17,13 +17,13 @@ class MenusTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Nama Menu')
+                    ->label(__('Menu Name'))
                     ->weight('bold')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('location')
-                    ->label('Lokasi')
+                    ->label(__('Location'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'header' => 'primary',
@@ -31,31 +31,37 @@ class MenusTable
                         'sidebar' => 'warning',
                         default => 'gray',
                     })
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'header' => __('Header'),
+                        'footer' => __('Footer'),
+                        'sidebar' => __('Sidebar'),
+                        default => $state,
+                    })
                     ->sortable(),
 
                 TextColumn::make('items_count')
-                    ->label('Jumlah Item')
+                    ->label(__('Total Items'))
                     ->counts('items')
                     ->badge()
                     ->color('success'),
 
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->boolean()
                     ->sortable(),
 
                 TextColumn::make('updated_at')
-                    ->label('Terakhir Diperbarui')
+                    ->label(__('Last Updated'))
                     ->dateTime('d M Y')
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('location')
-                    ->label('Lokasi Menu')
+                    ->label(__('Filter by Location'))
                     ->options([
-                        'header' => 'Header',
-                        'footer' => 'Footer',
-                        'sidebar' => 'Sidebar',
+                        'header' => __('Header'),
+                        'footer' => __('Footer'),
+                        'sidebar' => __('Sidebar'),
                     ]),
             ])
             ->recordActions([

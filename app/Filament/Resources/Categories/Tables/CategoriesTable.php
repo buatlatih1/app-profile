@@ -17,42 +17,42 @@ class CategoriesTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Nama Kategori')
+                    ->label(__('Category Name'))
                     ->weight('bold')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('slug')
-                    ->label('Slug')
+                    ->label(__('Slug'))
                     ->searchable(),
 
                 TextColumn::make('posts_count')
-                    ->label('Jumlah Post')
+                    ->label(__('Total Posts'))
                     ->counts('posts')
                     ->badge()
                     ->color('primary')
                     ->sortable(),
 
                 TextColumn::make('sort_order')
-                    ->label('Urutan')
+                    ->label(__('Order'))
                     ->sortable(),
 
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->boolean()
                     ->sortable(),
 
                 TextColumn::make('created_at')
-                    ->label('Dibuat')
+                    ->label(__('Created At'))
                     ->dateTime('d M Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TernaryFilter::make('is_active')
-                    ->label('Status Aktif')
-                    ->trueLabel('Hanya Aktif')
-                    ->falseLabel('Hanya Nonaktif'),
+                    ->label(__('Active Status'))
+                    ->trueLabel(__('Active Only'))
+                    ->falseLabel(__('Inactive Only')),
             ])
             ->recordActions([
                 EditAction::make(),

@@ -20,12 +20,12 @@ class PostsTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Gambar')
+                    ->label(__('Image'))
                     ->disk('public')
                     ->square(),
 
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->limit(40)
                     ->tooltip(fn ($record): string => $record->title)
                     ->weight('bold')
@@ -33,14 +33,14 @@ class PostsTable
                     ->sortable(),
 
                 TextColumn::make('category.name')
-                    ->label('Kategori')
+                    ->label(__('Category'))
                     ->badge()
                     ->color('info')
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn ($state) => match ($state instanceof PostStatus ? $state->value : $state) {
                         PostStatus::Published->value => 'success',
@@ -49,44 +49,44 @@ class PostsTable
                         default => 'primary',
                     })
                     ->formatStateUsing(fn ($state) => match ($state instanceof PostStatus ? $state->value : $state) {
-                        PostStatus::Published->value => 'Published',
-                        PostStatus::Draft->value => 'Draft',
-                        PostStatus::Archived->value => 'Archived',
+                        PostStatus::Published->value => __('Published'),
+                        PostStatus::Draft->value => __('Draft'),
+                        PostStatus::Archived->value => __('Archived'),
                         default => $state,
                     })
                     ->sortable(),
 
                 IconColumn::make('is_featured')
-                    ->label('Featured')
+                    ->label(__('Featured'))
                     ->boolean()
                     ->sortable(),
 
                 TextColumn::make('view_count')
-                    ->label('Dilihat')
+                    ->label(__('Views'))
                     ->sortable(),
 
                 TextColumn::make('published_at')
-                    ->label('Waktu Publikasi')
+                    ->label(__('Published At'))
                     ->dateTime('d M Y H:i')
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('category_id')
-                    ->label('Filter Kategori')
+                    ->label(__('Filter by Category'))
                     ->relationship('category', 'name'),
 
                 SelectFilter::make('status')
-                    ->label('Filter Status')
+                    ->label(__('Filter by Status'))
                     ->options([
-                        PostStatus::Published->value => 'Published',
-                        PostStatus::Draft->value => 'Draft',
-                        PostStatus::Archived->value => 'Archived',
+                        PostStatus::Published->value => __('Published'),
+                        PostStatus::Draft->value => __('Draft'),
+                        PostStatus::Archived->value => __('Archived'),
                     ]),
 
                 TernaryFilter::make('is_featured')
-                    ->label('Artikel Unggulan')
-                    ->trueLabel('Hanya Unggulan')
-                    ->falseLabel('Bukan Unggulan'),
+                    ->label(__('Featured Articles'))
+                    ->trueLabel(__('Featured Only'))
+                    ->falseLabel(__('Non-Featured Only')),
             ])
             ->recordActions([
                 EditAction::make(),

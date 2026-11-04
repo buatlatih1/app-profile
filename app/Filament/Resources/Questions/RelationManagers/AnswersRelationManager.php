@@ -16,12 +16,26 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class AnswersRelationManager extends RelationManager
 {
     protected static string $relationship = 'answers';
 
-    protected static ?string $title = 'Tanggapan & Jawaban Resmi';
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Official Responses & Answers');
+    }
+
+    public static function getModelLabel(): ?string
+    {
+        return __('Response');
+    }
+
+    public static function getPluralModelLabel(): ?string
+    {
+        return __('Official Responses & Answers');
+    }
 
     public function form(Schema $schema): Schema
     {
@@ -31,23 +45,23 @@ class AnswersRelationManager extends RelationManager
                     ->default(fn () => auth()->id()),
 
                 Textarea::make('body')
-                    ->label('Isi Tanggapan / Jawaban')
+                    ->label(__('Response / Answer Content'))
                     ->rows(6)
                     ->required()
-                    ->helperText('Tanggapan ini akan otomatis dikirimkan ke email penanya jika dipublikasikan.')
+                    ->helperText(__('This response will be sent to the citizen\'s email upon publication.'))
                     ->columnSpanFull(),
 
                 Select::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->options([
-                        'published' => 'Dipublikasikan (Kirim ke Warga)',
-                        'draft' => 'Draf Internal',
+                        'published' => __('Published (Sent to Citizen)'),
+                        'draft' => __('Internal Draft'),
                     ])
                     ->default('published')
                     ->required(),
 
                 Toggle::make('is_published')
-                    ->label('Publikasikan ke Aplikasi & Web (Bisa dibaca umum)')
+                    ->label(__('Publish to App & Web (Public)'))
                     ->default(true),
             ]);
     }
@@ -58,20 +72,20 @@ class AnswersRelationManager extends RelationManager
             ->recordTitleAttribute('body')
             ->columns([
                 TextColumn::make('user.name')
-                    ->label('Petugas Penjawab')
+                    ->label(__('Responding Officer'))
                     ->weight('bold'),
 
                 TextColumn::make('body')
-                    ->label('Tanggapan')
+                    ->label(__('Response'))
                     ->limit(60)
                     ->tooltip(fn ($record): string => $record->body),
 
                 IconColumn::make('is_published')
-                    ->label('Publik')
+                    ->label(__('Public'))
                     ->boolean(),
 
                 TextColumn::make('answered_at')
-                    ->label('Waktu Menjawab')
+                    ->label(__('Answered At'))
                     ->dateTime('d M Y H:i')
                     ->sortable(),
             ])
@@ -80,7 +94,7 @@ class AnswersRelationManager extends RelationManager
             ])
             ->headerActions([
                 CreateAction::make()
-                    ->label('Beri Tanggapan Baru'),
+                    ->label(__('Add New Response')),
             ])
             ->recordActions([
                 EditAction::make(),

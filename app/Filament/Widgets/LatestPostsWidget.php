@@ -9,14 +9,18 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
+use Illuminate\Contracts\Support\Htmlable;
 
 class LatestPostsWidget extends TableWidget
 {
     protected static ?int $sort = 3;
 
-    protected static ?string $heading = 'Artikel Terbaru';
-
     protected int|string|array $columnSpan = 'full';
+
+    public function getTableHeading(): string|Htmlable|null
+    {
+        return __('Latest Articles');
+    }
 
     public function table(Table $table): Table
     {
@@ -25,22 +29,22 @@ class LatestPostsWidget extends TableWidget
             ->defaultPaginationPageOption(5)
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Gambar')
+                    ->label(__('Image'))
                     ->disk('public')
                     ->square(),
 
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(__('Title'))
                     ->weight('bold')
                     ->limit(40),
 
                 TextColumn::make('category.name')
-                    ->label('Kategori')
+                    ->label(__('Category'))
                     ->badge()
                     ->color('info'),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn ($state) => match ($state instanceof PostStatus ? $state->value : $state) {
                         PostStatus::Published->value => 'success',
@@ -49,18 +53,18 @@ class LatestPostsWidget extends TableWidget
                         default => 'primary',
                     })
                     ->formatStateUsing(fn ($state) => match ($state instanceof PostStatus ? $state->value : $state) {
-                        PostStatus::Published->value => 'Published',
-                        PostStatus::Draft->value => 'Draft',
-                        PostStatus::Archived->value => 'Archived',
+                        PostStatus::Published->value => __('Published'),
+                        PostStatus::Draft->value => __('Draft'),
+                        PostStatus::Archived->value => __('Archived'),
                         default => $state,
                     }),
 
                 TextColumn::make('view_count')
-                    ->label('Dilihat')
+                    ->label(__('Views'))
                     ->sortable(),
 
                 TextColumn::make('created_at')
-                    ->label('Dibuat')
+                    ->label(__('Created At'))
                     ->dateTime('d M Y'),
             ])
             ->recordUrl(fn (Post $record): string => PostResource::getUrl('edit', ['record' => $record]));

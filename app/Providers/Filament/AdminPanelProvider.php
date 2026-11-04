@@ -32,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->profile()
-            ->brandName('CMS Portal Instansi')
+            ->brandName(fn () => __('Agency Portal CMS'))
             ->sidebarCollapsibleOnDesktop()
             ->spa()
             ->resourceCreatePageRedirect('index')
@@ -43,13 +43,13 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 NavigationGroup::make()
-                    ->label('CMS')
+                    ->label(fn () => __('CMS'))
                     ->icon('heroicon-o-document-text'),
                 NavigationGroup::make()
-                    ->label('Layanan Masyarakat')
+                    ->label(fn () => __('Public Services'))
                     ->icon('heroicon-o-chat-bubble-left-right'),
                 NavigationGroup::make()
-                    ->label('Pengaturan')
+                    ->label(fn () => __('Settings'))
                     ->icon('heroicon-o-cog-6-tooth'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
@@ -68,7 +68,6 @@ class AdminPanelProvider extends PanelProvider
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
                 SetLocaleMiddleware::class,
-                \App\Http\Middleware\SetLocaleMiddleware::class,
                 AuthenticateSession::class,
                 ShareErrorsFromSession::class,
                 PreventRequestForgery::class,

@@ -15,35 +15,35 @@ class QuestionTopicForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('Nama Topik')
+                    ->label(__('Topic Name'))
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
 
                 TextInput::make('slug')
-                    ->label('Slug')
+                    ->label(__('Slug'))
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
 
                 Textarea::make('description')
-                    ->label('Deskripsi')
+                    ->label(__('Description'))
                     ->rows(3)
                     ->columnSpanFull(),
 
                 TextInput::make('icon')
-                    ->label('Kode Ikon')
+                    ->label(__('Icon Code'))
                     ->placeholder('chat-bubble-left')
                     ->maxLength(50),
 
                 TextInput::make('sort_order')
-                    ->label('Nomor Urut')
+                    ->label(__('Sort Order'))
                     ->numeric()
                     ->default(0),
 
                 Toggle::make('is_active')
-                    ->label('Aktif')
+                    ->label(__('Active'))
                     ->default(true),
             ]);
     }

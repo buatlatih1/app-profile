@@ -13,7 +13,6 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use UnitEnum;
 
 class PostResource extends Resource
 {
@@ -21,23 +20,26 @@ class PostResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
-    protected static UnitEnum|string|null $navigationGroup = 'CMS';
-
     protected static ?int $navigationSort = 1;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('CMS');
+    }
 
     public static function getNavigationLabel(): string
     {
-        return 'Post & Artikel';
+        return __('Posts & Articles');
     }
 
     public static function getModelLabel(): string
     {
-        return 'Artikel';
+        return __('Article');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return 'Post & Artikel';
+        return __('Posts & Articles');
     }
 
     public static function form(Schema $schema): Schema

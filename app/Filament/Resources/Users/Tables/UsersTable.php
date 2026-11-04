@@ -18,23 +18,23 @@ class UsersTable
         return $table
             ->columns([
                 ImageColumn::make('avatar')
-                    ->label('Avatar')
+                    ->label(__('Avatar'))
                     ->circular()
                     ->disk('public'),
 
                 TextColumn::make('name')
-                    ->label('Nama')
+                    ->label(__('Name'))
                     ->weight('bold')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('email')
-                    ->label('Email')
+                    ->label(__('Email'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('role')
-                    ->label('Role')
+                    ->label(__('Role'))
                     ->badge()
                     ->color(fn ($state) => match ($state instanceof UserRole ? $state->value : $state) {
                         UserRole::Admin->value => 'danger',
@@ -43,25 +43,25 @@ class UsersTable
                         default => 'gray',
                     })
                     ->formatStateUsing(fn ($state) => match ($state instanceof UserRole ? $state->value : $state) {
-                        UserRole::Admin->value => 'Admin',
-                        UserRole::Editor->value => 'Editor',
-                        UserRole::Viewer->value => 'Viewer',
+                        UserRole::Admin->value => __('Administrator'),
+                        UserRole::Editor->value => __('Editor'),
+                        UserRole::Viewer->value => __('Viewer'),
                         default => $state,
                     })
                     ->sortable(),
 
                 TextColumn::make('created_at')
-                    ->label('Terdaftar')
+                    ->label(__('Registered At'))
                     ->dateTime('d M Y')
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('role')
-                    ->label('Filter Role')
+                    ->label(__('Filter by Role'))
                     ->options([
-                        UserRole::Admin->value => 'Admin',
-                        UserRole::Editor->value => 'Editor',
-                        UserRole::Viewer->value => 'Viewer',
+                        UserRole::Admin->value => __('Administrator'),
+                        UserRole::Editor->value => __('Editor'),
+                        UserRole::Viewer->value => __('Viewer'),
                     ]),
             ])
             ->recordActions([

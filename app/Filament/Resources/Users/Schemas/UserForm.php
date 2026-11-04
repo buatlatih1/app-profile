@@ -15,7 +15,7 @@ class UserForm
         return $schema
             ->components([
                 FileUpload::make('avatar')
-                    ->label('Foto Profil')
+                    ->label(__('Profile Picture'))
                     ->image()
                     ->avatar()
                     ->disk('public')
@@ -23,33 +23,33 @@ class UserForm
                     ->columnSpanFull(),
 
                 TextInput::make('name')
-                    ->label('Nama Lengkap')
+                    ->label(__('Full Name'))
                     ->required()
                     ->maxLength(255),
 
                 TextInput::make('email')
-                    ->label('Alamat Email')
+                    ->label(__('Email Address'))
                     ->email()
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
 
                 Select::make('role')
-                    ->label('Peran (Role)')
+                    ->label(__('Role'))
                     ->options([
-                        UserRole::Admin->value => 'Administrator',
-                        UserRole::Editor->value => 'Editor Konten',
-                        UserRole::Viewer->value => 'Viewer (Hanya Lihat)',
+                        UserRole::Admin->value => __('Administrator'),
+                        UserRole::Editor->value => __('Content Editor'),
+                        UserRole::Viewer->value => __('Viewer (Read Only)'),
                     ])
                     ->default(UserRole::Editor->value)
                     ->required(),
 
                 TextInput::make('password')
-                    ->label('Password')
+                    ->label(__('Password'))
                     ->password()
                     ->dehydrated(fn ($state) => filled($state))
                     ->required(fn (string $context): bool => $context === 'create')
-                    ->helperText(fn (string $context): string => $context === 'edit' ? 'Kosongkan jika tidak ingin mengubah password' : ''),
+                    ->helperText(fn (string $context): string => $context === 'edit' ? __('Leave blank if you do not want to change the password') : ''),
             ]);
     }
 }
