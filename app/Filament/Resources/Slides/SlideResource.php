@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Filament\Resources\Slides;
+
+use App\Filament\Resources\Slides\Pages\CreateSlide;
+use App\Filament\Resources\Slides\Pages\EditSlide;
+use App\Filament\Resources\Slides\Pages\ListSlides;
+use App\Filament\Resources\Slides\Schemas\SlideForm;
+use App\Filament\Resources\Slides\Tables\SlidesTable;
+use App\Models\Slide;
+use BackedEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
+use UnitEnum;
+
+class SlideResource extends Resource
+{
+    protected static ?string $model = Slide::class;
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPhoto;
+
+    protected static UnitEnum|string|null $navigationGroup = 'CMS';
+
+    protected static ?int $navigationSort = 6;
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Slide Beranda';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Slide';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Slide Beranda';
+    }
+
+    public static function form(Schema $schema): Schema
+    {
+        return SlideForm::configure($schema);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return SlidesTable::configure($table);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListSlides::route('/'),
+            'create' => CreateSlide::route('/create'),
+            'edit' => EditSlide::route('/{record}/edit'),
+        ];
+    }
+}
