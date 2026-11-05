@@ -237,18 +237,14 @@ class PostCard extends StatelessWidget {
       height: height,
       width: double.infinity,
       color: const Color(0xFFE2E8F0),
-      child: Center(
+      child: const Center(
         child: Icon(
           Icons.image_outlined,
           size: 40,
-          color: Colors.slate.shade400,
+          color: Color(0xFF94A3B8),
         ),
       ),
     );
   }
-}
-
-extension on Colors {
-  static Color get slate => const Color(0xFF94A3B8);
 }
 
