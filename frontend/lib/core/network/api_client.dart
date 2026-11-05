@@ -132,27 +132,29 @@ class ApiClient {
     );
   }
 
-  /// Utility to resolve image URLs returned by Laravel
+  /// Utility to resolve image URLs returned by Laravel with guaranteed CORS support
   static String? resolveImageUrl(String? rawUrl) {
     if (rawUrl == null || rawUrl.trim().isEmpty) return null;
-    var trimmed = rawUrl.trim();
+    final trimmed = rawUrl.trim();
 
-    // On web, normalize localhost:8000 to 127.0.0.1:8000 to avoid Windows IPv6 [::1] connection refused
-    if (kIsWeb && trimmed.contains('localhost:8000')) {
-      trimmed = trimmed.replaceFirst('localhost:8000', '127.0.0.1:8000');
+    // If points to local storage (either absolute http://.../storage/... or relative storage/...)
+    // route it through the API storage proxy endpoint so CORS headers are always attached
+    if (trimmed.contains('/storage/')) {
+      final path = trimmed.split('/storage/').last;
+      return '${ApiConstants.baseUrl}/storage/$path';
     }
 
+    if (trimmed.startsWith('storage/')) {
+      final path = trimmed.substring(8);
+      return '${ApiConstants.baseUrl}/storage/$path';
+    }
+
+    // External image URLs
     if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
       return trimmed;
     }
 
-    final storageBase = ApiConstants.storageBaseUrl;
-    if (trimmed.startsWith('/storage/')) {
-      return '$storageBase$trimmed';
-    }
-    if (trimmed.startsWith('storage/')) {
-      return '$storageBase/$trimmed';
-    }
-    return '$storageBase/storage/$trimmed';
+    final clean = trimmed.startsWith('/') ? trimmed.substring(1) : trimmed;
+    return '${ApiConstants.baseUrl}/storage/$clean';
   }
 }

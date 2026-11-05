@@ -17,7 +17,7 @@ class SettingSeeder extends Seeder
             ['group' => 'general', 'key' => 'site_name', 'value' => 'Dinas Komunikasi dan Informatika', 'type' => 'text'],
             ['group' => 'general', 'key' => 'site_tagline', 'value' => 'Mewujudkan Pelayanan Publik yang Transparan dan Akuntabel', 'type' => 'text'],
             ['group' => 'general', 'key' => 'site_description', 'value' => 'Portal resmi layanan informasi dan penyampaian aspirasi masyarakat.', 'type' => 'textarea'],
-            ['group' => 'general', 'key' => 'site_logo', 'value' => null, 'type' => 'image'],
+            ['group' => 'general', 'key' => 'site_logo', 'value' => 'settings/logo.png', 'type' => 'image'],
             ['group' => 'general', 'key' => 'site_favicon', 'value' => null, 'type' => 'image'],
 
             // Contact
