@@ -226,7 +226,7 @@ class PostCard extends StatelessWidget {
         height: height,
         width: double.infinity,
         fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) => _buildPlaceholder(height),
+        errorBuilder: (_, _, _) => _buildPlaceholder(height),
       );
     }
     return _buildPlaceholder(height);

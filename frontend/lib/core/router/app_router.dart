@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../views/faqs_view.dart';
 import '../../views/home_view.dart';

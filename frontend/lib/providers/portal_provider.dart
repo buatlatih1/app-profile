@@ -3,6 +3,7 @@ import '../core/localization/locale_provider.dart';
 import '../models/category_model.dart';
 import '../models/faq_model.dart';
 import '../models/menu_model.dart';
+import '../models/pagination_meta.dart';
 import '../models/post_model.dart';
 import '../models/question_model.dart';
 import '../models/setting_model.dart';
@@ -71,16 +72,17 @@ class PortalProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
+      final defaultMeta = PaginationMeta(currentPage: 1, lastPage: 1, total: 0, perPage: 10);
       final results = await Future.wait([
         portalService.getSlides().catchError((_) => <SlideModel>[]),
         portalService.getSettings().catchError((_) => SettingModel.fromJson({})),
         portalService.getMenu('header').catchError((_) => null),
         portalService.getMenu('footer').catchError((_) => null),
         postService.getCategories().catchError((_) => <CategoryModel>[]),
-        postService.getPosts(page: 1, perPage: 4, featured: true).catchError((_) => (posts: <PostModel>[], meta: null as dynamic)),
-        postService.getPosts(page: 1, perPage: 6).catchError((_) => (posts: <PostModel>[], meta: null as dynamic)),
+        postService.getPosts(page: 1, perPage: 4, featured: true).catchError((_) => (posts: <PostModel>[], meta: defaultMeta)),
+        postService.getPosts(page: 1, perPage: 6).catchError((_) => (posts: <PostModel>[], meta: defaultMeta)),
         faqService.getFaqs().catchError((_) => <FaqModel>[]),
-        inquiryService.getQuestions(page: 1, perPage: 3).catchError((_) => (questions: <QuestionModel>[], meta: null as dynamic)),
+        inquiryService.getQuestions(page: 1, perPage: 3).catchError((_) => (questions: <QuestionModel>[], meta: defaultMeta)),
       ]);
 
       _slides = results[0] as List<SlideModel>;

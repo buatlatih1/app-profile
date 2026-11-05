@@ -197,7 +197,7 @@ class AppDrawer extends StatelessWidget {
         ),
       ),
       selected: isActive,
-      selectedTileColor: AppTheme.primaryLight.withOpacity(0.5),
+      selectedTileColor: AppTheme.primaryLight.withValues(alpha: 0.5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
       onTap: () {

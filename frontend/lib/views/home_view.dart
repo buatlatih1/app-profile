@@ -388,7 +388,7 @@ class HomeView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF0F766E).withOpacity(0.2),
+                      color: const Color(0xFF0F766E).withValues(alpha: 0.2),
                       blurRadius: 16,
                       offset: const Offset(0, 8),
                     ),
@@ -413,7 +413,7 @@ class HomeView extends StatelessWidget {
                                 Text(
                                   l10n.text('inquiry_cta_desc'),
                                   style: TextStyle(
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                     fontSize: 14,
                                     height: 1.5,
                                   ),
@@ -452,7 +452,7 @@ class HomeView extends StatelessWidget {
                           Text(
                             l10n.text('inquiry_cta_desc'),
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.white.withValues(alpha: 0.9),
                               fontSize: 13,
                               height: 1.5,
                             ),

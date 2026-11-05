@@ -186,7 +186,7 @@ class _SubmitQuestionViewState extends State<SubmitQuestionView> {
               ),
               const SizedBox(height: 8),
               DropdownButtonFormField<int>(
-                value: _selectedTopicId,
+                initialValue: _selectedTopicId,
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.category_outlined, color: AppTheme.textMuted),
                 ),

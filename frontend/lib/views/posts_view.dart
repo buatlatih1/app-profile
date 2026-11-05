@@ -225,7 +225,7 @@ class _PostsViewState extends State<PostsView> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: isSelected ? Colors.white.withOpacity(0.2) : AppTheme.primaryLight,
+                  color: isSelected ? Colors.white.withValues(alpha: 0.2) : AppTheme.primaryLight,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
