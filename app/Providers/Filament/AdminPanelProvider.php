@@ -22,6 +22,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
+use Filament\View\PanelsRenderHook;
+use LaraZeus\SpatieTranslatable\SpatieTranslatablePlugin;
+
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -35,6 +38,11 @@ class AdminPanelProvider extends PanelProvider
             ->brandName(fn () => __('Agency Portal CMS'))
             ->sidebarCollapsibleOnDesktop()
             ->spa()
+            ->plugin(
+                SpatieTranslatablePlugin::make()
+                    ->defaultLocales(['id', 'en'])
+                    ->persist()
+            )
             ->resourceCreatePageRedirect('index')
             ->resourceEditPageRedirect('index')
             ->colors([

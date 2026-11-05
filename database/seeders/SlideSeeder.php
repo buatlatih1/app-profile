@@ -14,34 +14,52 @@ class SlideSeeder extends Seeder
     {
         $slides = [
             [
-                'title' => 'Selamat Datang di Portal Resmi Pelayanan Publik',
-                'description' => 'Akses informasi kedinasan, berita terkini, dan sampaikan pertanyaan serta aspirasi secara langsung.',
+                'sort_order' => 1,
+                'title' => [
+                    'id' => 'Selamat Datang di Portal Resmi Pelayanan Publik',
+                    'en' => 'Welcome to the Official Public Service Portal',
+                ],
+                'description' => [
+                    'id' => 'Akses informasi kedinasan, berita terkini, dan sampaikan pertanyaan serta aspirasi secara langsung.',
+                    'en' => 'Access official information, latest news, and submit questions and feedback directly.',
+                ],
                 'image' => 'slides/slide-1.jpg',
                 'link_url' => '/page/tentang-kami',
-                'sort_order' => 1,
                 'is_active' => true,
             ],
             [
-                'title' => 'Layanan Aspirasi & Tanya Jawab Masyarakat',
-                'description' => 'Kami siap mendengarkan pertanyaan dan masukan Anda untuk kemajuan pelayanan publik yang lebih baik.',
+                'sort_order' => 2,
+                'title' => [
+                    'id' => 'Layanan Aspirasi & Tanya Jawab Masyarakat',
+                    'en' => 'Community Feedback & FAQ Service',
+                ],
+                'description' => [
+                    'id' => 'Kami siap mendengarkan pertanyaan dan masukan Anda untuk kemajuan pelayanan publik yang lebih baik.',
+                    'en' => 'We are ready to hear your questions and suggestions for better public services.',
+                ],
                 'image' => 'slides/slide-2.jpg',
                 'link_url' => '/questions',
-                'sort_order' => 2,
                 'is_active' => true,
             ],
             [
-                'title' => 'Transparansi dan Akuntabilitas Informasi',
-                'description' => 'Cek laporan kinerja berkala dan dokumen keterbukaan informasi publik kapan saja.',
+                'sort_order' => 3,
+                'title' => [
+                    'id' => 'Transparansi dan Akuntabilitas Informasi',
+                    'en' => 'Information Transparency and Accountability',
+                ],
+                'description' => [
+                    'id' => 'Cek laporan kinerja berkala dan dokumen keterbukaan informasi publik kapan saja.',
+                    'en' => 'Check periodic performance reports and public disclosure documents anytime.',
+                ],
                 'image' => 'slides/slide-3.jpg',
                 'link_url' => '/posts',
-                'sort_order' => 3,
                 'is_active' => true,
             ],
         ];
 
         foreach ($slides as $slide) {
             Slide::updateOrCreate(
-                ['title' => $slide['title']],
+                ['sort_order' => $slide['sort_order']],
                 $slide
             );
         }

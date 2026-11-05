@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Translatable\HasTranslations;
 
 #[Fillable([
     'user_id',
@@ -20,6 +21,9 @@ use Illuminate\Support\Facades\Storage;
 class Media extends Model
 {
     use HasFactory;
+    use HasTranslations;
+
+    public array $translatable = ['alt_text'];
 
     protected function casts(): array
     {

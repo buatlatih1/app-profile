@@ -20,12 +20,19 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(2, true);
+        $nameId = fake('id_ID')->unique()->words(2, true);
+        $nameEn = fake('en_US')->unique()->words(2, true);
 
         return [
-            'name' => ucfirst($name),
-            'slug' => Str::slug($name),
-            'description' => fake()->paragraph(),
+            'name' => [
+                'id' => ucfirst($nameId),
+                'en' => ucfirst($nameEn),
+            ],
+            'slug' => Str::slug($nameId),
+            'description' => [
+                'id' => fake('id_ID')->paragraph(),
+                'en' => fake('en_US')->paragraph(),
+            ],
             'icon' => 'heroicon-o-folder',
             'sort_order' => fake()->numberBetween(0, 10),
             'is_active' => true,

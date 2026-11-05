@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
@@ -14,16 +13,76 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name' => 'Berita Utama', 'description' => 'Kumpulan berita terkini dan utama seputar kegiatan instansi.', 'icon' => 'newspaper', 'sort_order' => 1],
-            ['name' => 'Pengumuman', 'description' => 'Pengumuman resmi kedinasan dan informasi penting untuk publik.', 'icon' => 'megaphone', 'sort_order' => 2],
-            ['name' => 'Artikel & Edukasi', 'description' => 'Artikel informatif, tips, dan wawasan edukasi kemasyarakatan.', 'icon' => 'book-open', 'sort_order' => 3],
-            ['name' => 'Kegiatan & Sosialisasi', 'description' => 'Dokumentasi dan laporan kegiatan sosialisasi program kerja.', 'icon' => 'calendar-days', 'sort_order' => 4],
-            ['name' => 'Transparansi Kinerja', 'description' => 'Laporan akuntabilitas, data statistik, dan publikasi keterbukaan informasi.', 'icon' => 'chart-bar', 'sort_order' => 5],
+            [
+                'name' => [
+                    'id' => 'Berita Utama',
+                    'en' => 'Main News',
+                ],
+                'description' => [
+                    'id' => 'Kumpulan berita terkini dan utama seputar kegiatan instansi.',
+                    'en' => 'Collection of the latest and top news regarding agency activities.',
+                ],
+                'slug' => 'berita-utama',
+                'icon' => 'newspaper',
+                'sort_order' => 1,
+            ],
+            [
+                'name' => [
+                    'id' => 'Pengumuman',
+                    'en' => 'Announcements',
+                ],
+                'description' => [
+                    'id' => 'Pengumuman resmi kedinasan dan informasi penting untuk publik.',
+                    'en' => 'Official service announcements and important public information.',
+                ],
+                'slug' => 'pengumuman',
+                'icon' => 'megaphone',
+                'sort_order' => 2,
+            ],
+            [
+                'name' => [
+                    'id' => 'Artikel & Edukasi',
+                    'en' => 'Articles & Education',
+                ],
+                'description' => [
+                    'id' => 'Artikel informatif, tips, dan wawasan edukasi kemasyarakatan.',
+                    'en' => 'Informative articles, tips, and public education insights.',
+                ],
+                'slug' => 'artikel-edukasi',
+                'icon' => 'book-open',
+                'sort_order' => 3,
+            ],
+            [
+                'name' => [
+                    'id' => 'Kegiatan & Sosialisasi',
+                    'en' => 'Activities & Outreach',
+                ],
+                'description' => [
+                    'id' => 'Dokumentasi dan laporan kegiatan sosialisasi program kerja.',
+                    'en' => 'Documentation and reports on work program socialization activities.',
+                ],
+                'slug' => 'kegiatan-sosialisasi',
+                'icon' => 'calendar-days',
+                'sort_order' => 4,
+            ],
+            [
+                'name' => [
+                    'id' => 'Transparansi Kinerja',
+                    'en' => 'Performance Transparency',
+                ],
+                'description' => [
+                    'id' => 'Laporan akuntabilitas, data statistik, dan publikasi keterbukaan informasi.',
+                    'en' => 'Accountability reports, statistical data, and public disclosure publications.',
+                ],
+                'slug' => 'transparansi-kinerja',
+                'icon' => 'chart-bar',
+                'sort_order' => 5,
+            ],
         ];
 
         foreach ($categories as $cat) {
             Category::updateOrCreate(
-                ['slug' => Str::slug($cat['name'])],
+                ['slug' => $cat['slug']],
                 [
                     'name' => $cat['name'],
                     'description' => $cat['description'],

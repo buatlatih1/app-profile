@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Spatie\Translatable\HasTranslations;
 
 #[Fillable([
     'user_id',
@@ -23,6 +24,9 @@ use Illuminate\Support\Str;
 class Page extends Model
 {
     use HasFactory;
+    use HasTranslations;
+
+    public array $translatable = ['title', 'content'];
 
     protected function casts(): array
     {

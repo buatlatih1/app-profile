@@ -23,15 +23,25 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        $title = fake()->sentence(6);
+        $titleId = fake('id_ID')->sentence(6);
+        $titleEn = fake('en_US')->sentence(6);
 
         return [
             'user_id' => User::first()?->id ?? User::factory(),
             'category_id' => Category::inRandomOrder()->first()?->id ?? Category::factory(),
-            'title' => $title,
-            'slug' => Str::slug($title),
-            'summary' => fake()->paragraph(2),
-            'content' => fake()->paragraphs(5, true),
+            'title' => [
+                'id' => $titleId,
+                'en' => $titleEn,
+            ],
+            'slug' => Str::slug($titleId),
+            'summary' => [
+                'id' => fake('id_ID')->paragraph(2),
+                'en' => fake('en_US')->paragraph(2),
+            ],
+            'content' => [
+                'id' => fake('id_ID')->paragraphs(5, true),
+                'en' => fake('en_US')->paragraphs(5, true),
+            ],
             'image' => null,
             'status' => PostStatus::Published,
             'published_at' => now()->subDays(fake()->numberBetween(0, 30)),

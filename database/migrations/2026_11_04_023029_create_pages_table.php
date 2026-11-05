@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('title');
+            $table->json('title');
             $table->string('slug')->unique();
-            $table->longText('content');
+            $table->json('content');
             $table->string('image')->nullable();
             $table->string('status')->default('draft'); // draft, published
             $table->integer('sort_order')->default(0);
