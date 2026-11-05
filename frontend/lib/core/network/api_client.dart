@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../constants/api_constants.dart';
 import '../localization/locale_provider.dart';
@@ -61,7 +61,7 @@ class ApiClient {
       final response = await _httpClient.get(uri, headers: _headers);
 
       return _processResponse(response);
-    } on SocketException {
+    } on http.ClientException {
       throw ApiException(
         localeProvider.languageCode == 'en'
             ? 'Cannot connect to backend server. Please verify the API is running at ${ApiConstants.baseUrl}'
@@ -84,7 +84,7 @@ class ApiClient {
       );
 
       return _processResponse(response);
-    } on SocketException {
+    } on http.ClientException {
       throw ApiException(
         localeProvider.languageCode == 'en'
             ? 'Cannot connect to server. Please check your network connection.'
@@ -135,7 +135,13 @@ class ApiClient {
   /// Utility to resolve image URLs returned by Laravel
   static String? resolveImageUrl(String? rawUrl) {
     if (rawUrl == null || rawUrl.trim().isEmpty) return null;
-    final trimmed = rawUrl.trim();
+    var trimmed = rawUrl.trim();
+
+    // On web, normalize localhost:8000 to 127.0.0.1:8000 to avoid Windows IPv6 [::1] connection refused
+    if (kIsWeb && trimmed.contains('localhost:8000')) {
+      trimmed = trimmed.replaceFirst('localhost:8000', '127.0.0.1:8000');
+    }
+
     if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
       return trimmed;
     }
